@@ -6,22 +6,14 @@ import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import CustomInput from "./CustomInput";
 import { authformSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/lib/actions/user.actions";
+import PlaidLink from "./PlaidLink";
 
 function AuthForm({ type }: { type: string }) {
   const router = useRouter();
@@ -44,6 +36,19 @@ function AuthForm({ type }: { type: string }) {
     try {
       setLoading(true);
 
+      const userData = {
+        firstName: data.firstName!,
+        lastName: data.lastName!,
+        address1: data.address1!,
+        city: data.city!,
+        state: data.state!,
+        postalCode: data.postalCode!,
+        ssn: data.ssn!,
+        dateOfBirth: data.dateOfBirth!,
+        email: data.email,
+        password: data.password,
+      };
+
       if (type == "sign-in") {
         const response = await signIn({
           email: data.email,
@@ -53,7 +58,7 @@ function AuthForm({ type }: { type: string }) {
       }
 
       if (type == "sign-up") {
-        const newUser = await signUp(data);
+        const newUser = await signUp(userData);
         setUser(newUser);
       }
     } catch (error) {
@@ -89,7 +94,9 @@ function AuthForm({ type }: { type: string }) {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4">{/* PlaidLink */}</div>
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant={"primary"} />
+        </div>
       ) : (
         <>
           <Form {...form}>
