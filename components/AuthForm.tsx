@@ -45,11 +45,11 @@ function AuthForm({ type }: { type: string }) {
       setLoading(true);
 
       if (type == "sign-in") {
-        // const response = await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
-        // if (response) router.push("/");
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        });
+        if (response) router.push("/");
       }
 
       if (type == "sign-up") {
