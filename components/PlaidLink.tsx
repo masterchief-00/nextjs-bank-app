@@ -5,12 +5,12 @@ import {
   usePlaidLink,
 } from "react-plaid-link";
 import { Button } from "./ui/button";
-import { StyledString } from "next/dist/build/swc";
 import { useRouter } from "next/navigation";
 import {
   createLinkToken,
   exchangePublicToken,
 } from "@/lib/actions/user.actions";
+import Image from "next/image";
 
 function PlaidLink({ user, variant }: PlaidLinkProps) {
   const router = useRouter();
@@ -45,7 +45,7 @@ function PlaidLink({ user, variant }: PlaidLinkProps) {
     <>
       {variant === "primary" ? (
         <Button
-          onClick={open()}
+          onClick={() => open()}
           disabled={!ready}
           className="plaidlink-primary"
         >
@@ -53,19 +53,33 @@ function PlaidLink({ user, variant }: PlaidLinkProps) {
         </Button>
       ) : variant === "ghost" ? (
         <Button
-          onClick={open()}
+          onClick={() => open()}
           disabled={!ready}
-          className="plaidlink-primary"
+          className="plaidlink-ghost"
         >
-          Connect Bank
+          <Image
+            src={"icons/connect-bank.svg"}
+            alt="connect-bank"
+            width={24}
+            height={24}
+          />
+          <p className="hidden text-[16px] font-semibold text-black-2 xl:block">
+            Connect Bank
+          </p>
         </Button>
       ) : (
         <Button
-          onClick={open()}
+          onClick={() => open()}
           disabled={!ready}
-          className="plaidlink-primary"
+          className="plaidlink-default"
         >
-          Connect Bank
+          <Image
+            src={"icons/connect-bank.svg"}
+            alt="connect-bank"
+            width={24}
+            height={24}
+          />
+          <p className="text-[16px] font-semibold text-black-2">Connect Bank</p>
         </Button>
       )}
     </>
