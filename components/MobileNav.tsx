@@ -49,7 +49,7 @@ function MobileNav({ user }: MobileNavProps) {
                     pathname === item.route ||
                     pathname.startsWith(`${item.route}/`);
                   return (
-                    <SheetClose asChild>
+                    <SheetClose asChild key={item.route}>
                       <Link
                         className={cn("mobilenav-sheet_close w-full", {
                           "bg-bank-gradient": isActive,
